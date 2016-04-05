@@ -1,10 +1,5 @@
 #include <syslog.h>
 #include "stdinc.h"
-#include "ciblog.h"
-#include "cibplay.h"
-#include "boardset.h"
-#include "zmalloc.h"
-
 
 //输出日志
 void cibLogRaw(int level, const char *msg)
@@ -57,9 +52,9 @@ void cibLog(int level, const char *fmt, ...)
 }
 char * ArrayToStr(const char* chs, int len)
 {
-//用于接收到的串转换成要用的十六进制串返回主窗口调用
+    //translate hex to sring
     char hex[17] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', ' '};
-    char *ascii = (char*)zcalloc ( (len * 3 + 1) * sizeof(char) ); // calloc ascii
+    char *ascii = (char*)calloc ((len * 3 + 1) * sizeof(char) ); // calloc ascii
 
     int i = 0;
     while ( i < len )
@@ -69,7 +64,7 @@ char * ArrayToStr(const char* chs, int len)
         ascii[i * 3 + 2] = hex[16];
         ++i;
     }
-    return ascii;                    // ascii 返回之前未释放
+    return ascii;                    // ascii not free
 }
 
 
